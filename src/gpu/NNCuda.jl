@@ -12,8 +12,6 @@ function mdinit(devlist)
     for dev in devlist
         device(dev)
         md = CuModule(joinpath(Pkg.dir(), "NearestNeighbors/deps/cu_kernels.ptx"), false)  # false means it will not be automatically finalized
-        ptxdict[(dev, "fill!", Float32)] = CuFunction(md, "fill_contiguous_double")
-        ptxdict[(dev, "fill!", Float64)] = CuFunction(md, "fill_contiguous_float")
         ptxdict[(dev, "colsumsq!", Float32)] = CuFunction(md, "colsumsq_float")
         ptxdict[(dev, "colsumsq!", Float64)] = CuFunction(md, "colsumsq_double")
         push!(mdlist, md)
